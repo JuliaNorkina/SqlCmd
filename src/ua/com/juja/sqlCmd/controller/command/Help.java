@@ -20,6 +20,10 @@ public class Help implements Command{
     @Override
     public void proces(String command) {
             view.write("Существующие команды: ");
+
+            view.write("\tconnect|databaseName|userName|password");
+            view.write("\t\tдля подключения к базе данныхб с которой будем работать.");
+
             view.write("\tlist");
             view.write("\t\tдля получения списка все таблиц базы, к которой подключились.");
 

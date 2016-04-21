@@ -18,4 +18,5 @@ public interface DatabaseManager {
 
     String[] getTableColumns(String tableName);
 
+    boolean IsConnected();
 }
