@@ -24,17 +24,18 @@ public class MainController {
                 new Unsupported(view)};
     }
 
-
-
     public void run(){
         view.write("Привет пользователь!");
         view.write("Введи, пожалуйста, имя базы данных, имя пользователя и " +
                 "пароль в формате: connect|database|userName|password");
         while (true) {
             String input = view.read();
+            if(input == null){
+               new Exit(view).process(input);
+            }
             for (Command command : commands) {
                 if (command.canProcess(input)) {
-                    command.proces(input);
+                    command.process(input);
                     break;
                 }
             }

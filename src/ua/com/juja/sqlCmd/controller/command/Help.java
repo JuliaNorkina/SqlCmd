@@ -18,7 +18,7 @@ public class Help implements Command{
     }
 
     @Override
-    public void proces(String command) {
+    public void process(String command) {
             view.write("Существующие команды: ");
 
             view.write("\tconnect|databaseName|userName|password");

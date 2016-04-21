@@ -6,5 +6,5 @@ package ua.com.juja.sqlCmd.controller.command;
 public interface Command {
 
     boolean canProcess(String command);
-    void proces(String command);
+    void process(String command);
 }

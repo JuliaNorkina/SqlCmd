@@ -23,7 +23,7 @@ public class Find implements Command {
     }
 
     @Override
-    public void proces(String command) {
+    public void process(String command) {
         String[] data = command.split("[|]");
         String tableName = data[1];
 

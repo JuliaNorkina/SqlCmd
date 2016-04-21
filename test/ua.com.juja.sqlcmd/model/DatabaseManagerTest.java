@@ -8,6 +8,7 @@ import ua.com.juja.sqlCmd.model.DatabaseManager;
 import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by Юлия on 10.04.2016.
@@ -27,7 +28,7 @@ public abstract class DatabaseManagerTest {
     @Test
     public void testGetAllTableNames(){
         String[] tableNames = manager.getTableNames();
-        assertEquals("[user]", Arrays.toString(tableNames));
+        assertEquals("[user, test]", Arrays.toString(tableNames));
     }
 
     @Test
@@ -87,5 +88,13 @@ public abstract class DatabaseManagerTest {
 
         //then
         assertEquals("[name, password, id]", Arrays.toString(columnNames));
+    }
+
+    @Test
+    public void testIsConnected() {
+        //given
+        //when
+        //then
+        assertTrue(manager.IsConnected());
     }
 }

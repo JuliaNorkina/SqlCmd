@@ -19,7 +19,7 @@ public class Exit implements Command {
     }
 
     @Override
-    public void proces(String command) {
+    public void process(String command) {
         view.write("До скорой встречи!");
         System.exit(0);
     }
