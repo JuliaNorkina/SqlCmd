@@ -6,7 +6,7 @@ import ua.com.juja.sqlCmd.view.View;
  * Created by Юлия on 21.04.2016.
  */
 public class Help implements Command{
-    private final View view;
+    private View view;
 
     public Help(View view) {
         this.view = view;
