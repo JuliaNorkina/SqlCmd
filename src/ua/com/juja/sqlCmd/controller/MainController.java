@@ -2,6 +2,7 @@ package ua.com.juja.sqlCmd.controller;
 
 import ua.com.juja.sqlCmd.controller.command.Command;
 import ua.com.juja.sqlCmd.controller.command.Exit;
+import ua.com.juja.sqlCmd.controller.command.Help;
 import ua.com.juja.sqlCmd.model.DataSet;
 import ua.com.juja.sqlCmd.model.DatabaseManager;
 import ua.com.juja.sqlCmd.view.View;
@@ -20,7 +21,7 @@ public class MainController {
     public MainController(View view, DatabaseManager manager){
         this.view = view;
         this.manager = manager;
-        this.commands = new Command[] {new Exit(view)};
+        this.commands = new Command[] {new Exit(view), new Help(view)};
     }
 
     public void run(){
@@ -31,8 +32,8 @@ public class MainController {
 
             if (command.equals("list")) {
                 doList();
-            } else if (command.equals("help")) {
-                doHelp();
+            } else if (commands[1].canProcess(command)) {
+                commands[1].proces(command);
             } else if (commands[0].canProcess(command)) {
                 commands[0].proces(command);
             } else if (command.startsWith("find|")) {
@@ -81,20 +82,7 @@ public class MainController {
         view.write("---------------------------");
     }
 
-    private void doHelp() {
-        view.write("Существующие команды: ");
-        view.write("\tlist");
-        view.write("\t\tдля получения списка все таблиц базы, к которой подключились.");
 
-        view.write("\tfind|tableName");
-        view.write("\t\tдля получения содержимого таблицы 'tableName'.");
-
-        view.write("\thelp");
-        view.write("\t\tдля вывода этого списка на экран.");
-
-        view.write("\texit");
-        view.write("\t\tдля выхода из программы.");
-    }
 
     private void doList() {
         String message = Arrays.toString(manager.getTableNames());
