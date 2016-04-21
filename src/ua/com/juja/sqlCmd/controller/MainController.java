@@ -17,31 +17,23 @@ public class MainController {
         this.view = view;
         this.manager = manager;
         this.commands = new Command[] {new Exit(view), new Help(view),
-                new List(manager,view), new Find(manager,view)};
+                new List(manager,view), new Find(manager,view),
+                new Unsupported(view)};
     }
 
     public void run(){
         connectToDb();
         while (true) {
             view.write("Введи команду или help для помощи: ");
-            String command = view.read();
-
-            if (commands[2].canProcess(command)) {
-                commands[2].proces(command);
-            } else if (commands[1].canProcess(command)) {
-                commands[1].proces(command);
-            } else if (commands[0].canProcess(command)) {
-                commands[0].proces(command);
-            } else if (commands[3].canProcess(command)) {
-                commands[3].proces(command);
-            } else{
-                view.write("Несуществующая команда: "+ command);
+            String input = view.read();
+            for (Command command : commands) {
+                if (command.canProcess(input)) {
+                    command.proces(input);
+                    break;
+                }
             }
         }
     }
-
-
-
 
     private void connectToDb() {
         view.write("Привет пользователь!");
