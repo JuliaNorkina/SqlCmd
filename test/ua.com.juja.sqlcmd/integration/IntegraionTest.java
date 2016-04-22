@@ -308,4 +308,55 @@ public class IntegraionTest {
                 "До скорой встречи!\r\n", getData());
     }
 
+
+    @Test
+    public void testClearWithError(){
+        //given
+        in.add("connect|sqlcmd|postgres|12345678");
+        in.add("clear|fver|zrtj|yjyj");
+        in.add("exit");
+
+        //when
+        ua.com.juja.sqlCmd.controller.Main.main(new String[0]);
+
+        //then
+        assertEquals("Привет пользователь!\r\n" +
+                "Введи, пожалуйста, имя базы данных, имя пользователя и " +
+                "пароль в формате: connect|database|userName|password\r\n" +
+                //connect
+                "Успех!\r\n" +
+                "Введи команду или help для помощи: \r\n"+
+                //clear|fver|zrtj|yjyj
+                "Неудача! По причине: Формат команды 'clear|tableName', а ты ввел: clear|fver|zrtj|yjyj\r\n" +
+                "Повторите попытку.\r\n" +
+                "Введи команду или help для помощи: \r\n"+
+                //exit
+                "До скорой встречи!\r\n", getData());
+    }
+
+    @Test
+    public void testCreateWithError(){
+        //given
+        in.add("connect|sqlcmd|postgres|12345678");
+        in.add("create|user|error");
+
+        in.add("exit");
+
+        //when
+        ua.com.juja.sqlCmd.controller.Main.main(new String[0]);
+
+        //then
+        assertEquals("Привет пользователь!\r\n" +
+                "Введи, пожалуйста, имя базы данных, имя пользователя и " +
+                "пароль в формате: connect|database|userName|password\r\n" +
+                //connect
+                "Успех!\r\n" +
+                "Введи команду или help для помощи: \r\n"+
+                //create|user|error
+                "Неудача! По причине: Должно быть четное количество параметров в формате 'create|tableName|colum1|value1|column2|value2|...|columnN|valueN', а ты прислал: 'create|user|error'\r\n" +
+                "Повторите попытку.\r\n" +
+                "Введи команду или help для помощи: \r\n"+
+                //exit
+                "До скорой встречи!\r\n", getData());
+    }
 }

@@ -40,12 +40,18 @@ public class MainController {
                 "пароль в формате: connect|database|userName|password");
         while (true) {
             String input = view.read();
-            if (input == null) {
-                new Exit(view).process(input);
-            }
+
             for (Command command : commands) {
-                if (command.canProcess(input)) {
-                    command.process(input);
+                try {
+                    if (command.canProcess(input)) {
+                            command.process(input);
+                        break;
+                    }
+                } catch (Exception e){
+                    if(e instanceof ExitException){
+                        throw e;
+                        }
+                    printError(e);
                     break;
                 }
             }
@@ -53,5 +59,13 @@ public class MainController {
         }
     }
 
+    private void printError(Exception e) {
+        String message = e.getMessage();
+        if(e.getCause() != null){
+            message += " " + e.getCause().getMessage();
+        }
+        view.write("Неудача! По причине: " + message);
+        view.write("Повторите попытку.");
+    }
 
 }

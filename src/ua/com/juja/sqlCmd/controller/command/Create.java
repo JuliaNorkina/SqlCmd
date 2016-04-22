@@ -26,9 +26,9 @@ public class Create implements Command {
     public void process(String command) {
         String[] data = command.split("[|]");
         if (data.length % 2 != 0) {
-            throw new IllegalArgumentException("Должно быть четное количество " +
+            throw new IllegalArgumentException(String.format("Должно быть четное количество " +
                     "параметров в формате 'create|tableName|colum1|value1|column2|value2|...|columnN|valueN'," +
-                    " а ты прислал: " + command);
+                    " а ты прислал: '%s'",command));
         }
 
         String tableName = data[1];
