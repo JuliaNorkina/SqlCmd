@@ -44,6 +44,10 @@ public class IntegraionTest {
                 "\t\tдля подключения к базе данныхб с которой будем работать.\r\n" +
                 "\tlist\r\n" +
                 "\t\tдля получения списка все таблиц базы, к которой подключились.\r\n" +
+                "\tclear|tableName\r\n" +
+                "\t\tдля очистки всей таблицы.\r\n" +
+                "\tcreate|tableName|column1|value1|column2|value2|...|columnN|valueN\r\n" +
+                "\t\tдля создания записи в таблице.\r\n"+
                 "\tfind|tableName\r\n" +
                 "\t\tдля получения содержимого таблицы 'tableName'.\r\n" +
                 "\thelp\r\n" +
@@ -205,6 +209,7 @@ public class IntegraionTest {
                 "---------------------------\r\n" +
                 "| name | password | id | \r\n" +
                 "---------------------------\r\n" +
+                "---------------------------\r\n"+
                 "Введи команду или help для помощи: \r\n"+
                 //exit
                 "До скорой встречи!\r\n", getData());
@@ -241,4 +246,66 @@ public class IntegraionTest {
                 //exit
                 "До скорой встречи!\r\n", getData());
     }
+
+    @Test
+    public void testConnectWithError(){
+        //given
+        in.add("connect|sqlcmd");
+        in.add("exit");
+
+        //when
+        ua.com.juja.sqlCmd.controller.Main.main(new String[0]);
+
+        //then
+        assertEquals("Привет пользователь!\r\n" +
+                "Введи, пожалуйста, имя базы данных, имя пользователя и " +
+                "пароль в формате: connect|database|userName|password\r\n" +
+                "Неудача! По причине: Неверно количество параметров разделенных знаком '|', ожидается 4, но есть: 2\r\n" +
+                "Повторите попытку.\r\n" +
+                "Введи команду или help для помощи: \r\n"+
+                //exit
+                "До скорой встречи!\r\n", getData());
+    }
+
+    @Test
+    public void testFindAfterConnect_WithData(){
+        //given
+        in.add("connect|sqlcmd|postgres|12345678");
+        in.add("clear|user");
+        in.add("create|user|id|13|name|Stiven|password|*****");
+        in.add("create|user|id|14|name|Eva|password|+++++");
+        in.add("find|user");
+        in.add("exit");
+
+        //when
+        ua.com.juja.sqlCmd.controller.Main.main(new String[0]);
+
+        //then
+        assertEquals("Привет пользователь!\r\n" +
+                "Введи, пожалуйста, имя базы данных, имя пользователя и " +
+                "пароль в формате: connect|database|userName|password\r\n" +
+                //connect
+                "Успех!\r\n" +
+                "Введи команду или help для помощи: \r\n"+
+                //clear|user
+                "Таблица user была успешно очищена!\r\n" +
+                "Введи команду или help для помощи: \r\n" +
+                //create|user|id|13|name|Stiven|password|*****
+                "Запись {names: [id, name, password], values: [13, Stiven, *****]} была успешно создана в таблице 'user'!\r\n" +
+                "Введи команду или help для помощи: \r\n" +
+                //create|user|id|14|name|Eva|password|+++++
+                "Запись {names: [id, name, password], values: [14, Eva, +++++]} была успешно создана в таблице 'user'!\r\n" +
+                "Введи команду или help для помощи: \r\n" +
+                //find|user
+                "---------------------------\r\n" +
+                "| name | password | id | \r\n" +
+                "---------------------------\r\n" +
+                "| Stiven | ***** | 13 | \r\n" +
+                "| Eva | +++++ | 14 | \r\n" +
+                "---------------------------\r\n" +
+                "Введи команду или help для помощи: \r\n"+
+                //exit
+                "До скорой встречи!\r\n", getData());
+    }
+
 }
