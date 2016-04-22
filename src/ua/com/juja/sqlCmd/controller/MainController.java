@@ -25,13 +25,21 @@ public class MainController {
     }
 
     public void run(){
+        try {
+            doWork();
+        } catch (ExitException e){
+            //do nothing
+        }
+    }
+
+    private void doWork() {
         view.write("Привет пользователь!");
         view.write("Введи, пожалуйста, имя базы данных, имя пользователя и " +
                 "пароль в формате: connect|database|userName|password");
         while (true) {
             String input = view.read();
-            if(input == null){
-               new Exit(view).process(input);
+            if (input == null) {
+                new Exit(view).process(input);
             }
             for (Command command : commands) {
                 if (command.canProcess(input)) {
