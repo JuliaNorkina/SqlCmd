@@ -35,7 +35,6 @@ public class Find implements Command {
     }
 
     private void printTable(DataSet[] tableData) {
-
         for(DataSet row: tableData){
             printRow(row);
         }
