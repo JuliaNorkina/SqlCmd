@@ -51,7 +51,6 @@ public class Find implements Command {
     }
 
     private void printHeader(String[] tableColumns) {
-
         String result = "| ";
         for(String name: tableColumns){
             result += name + " | ";
