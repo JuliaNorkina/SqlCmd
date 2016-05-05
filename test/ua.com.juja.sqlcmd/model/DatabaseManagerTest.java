@@ -6,7 +6,6 @@ import ua.com.juja.sqlCmd.model.DataSet;
 import ua.com.juja.sqlCmd.model.DataSetImpl;
 import ua.com.juja.sqlCmd.model.DatabaseManager;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -50,8 +49,8 @@ public abstract class DatabaseManagerTest {
         assertEquals(1, users.size());
 
         DataSet user = users.get(0);
-        assertEquals("[name, password, id]",Arrays.toString(user.getNames()));
-        assertEquals("[Stiven, pass, 13]",Arrays.toString(user.getValues()));
+        assertEquals("[name, password, id]", user.getNames().toString());
+        assertEquals("[Stiven, pass, 13]", user.getValues().toString());
     }
 
     @Test
@@ -76,8 +75,8 @@ public abstract class DatabaseManagerTest {
         assertEquals(1, users.size());
 
         DataSet user = users.get(0);
-        assertEquals("[name, password, id]",Arrays.toString(user.getNames()));
-        assertEquals("[Pup, pass2, 13]",Arrays.toString(user.getValues()));
+        assertEquals("[name, password, id]", user.getNames().toString());
+        assertEquals("[Pup, pass2, 13]", user.getValues().toString());
     }
 
 
