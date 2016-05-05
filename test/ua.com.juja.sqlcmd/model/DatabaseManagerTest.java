@@ -25,6 +25,8 @@ public abstract class DatabaseManagerTest {
     public void setup() {
         manager = getDatabaseManager();
         manager.connect("sqlcmd", "postgres", "12345678");
+        manager.getTableData("user");
+        manager.getTableData("test");
     }
 
     @Test
