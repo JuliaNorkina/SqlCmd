@@ -42,7 +42,7 @@ public class IntegraionTest {
                 "Существующие команды: \r\n" +
                 "\tconnect|databaseName|userName|password\r\n" +
                 "\t\tдля подключения к базе данныхб с которой будем работать.\r\n" +
-                "\tlist\r\n" +
+                "\ttables\r\n" +
                 "\t\tдля получения списка все таблиц базы, к которой подключились.\r\n" +
                 "\tclear|tableName\r\n" +
                 "\t\tдля очистки всей таблицы.\r\n" +
@@ -85,7 +85,7 @@ public class IntegraionTest {
     @Test
     public void testListWithoutConnect(){
         //given
-        in.add("list");
+        in.add("tables");
         in.add("exit");
 
         //when
@@ -95,8 +95,8 @@ public class IntegraionTest {
         assertEquals("Привет пользователь!\r\n" +
                 "Введи, пожалуйста, имя базы данных, имя пользователя и " +
                 "пароль в формате: connect|database|userName|password\r\n" +
-                //list
-                "Вы не можете пользоватся командой 'list' пока не подключитесь с помощью команды connect|databaseName|userName|password\r\n" +
+                //tables
+                "Вы не можете пользоватся командой 'tables' пока не подключитесь с помощью команды connect|databaseName|userName|password\r\n" +
                 "Введи команду или help для помощи: \r\n"+
                 //exit
                 "До скорой встречи!\r\n", getData());
@@ -168,7 +168,7 @@ public class IntegraionTest {
     public void testListAfterConnect(){
         //given
         in.add("connect|sqlcmd|postgres|12345678");
-        in.add("list");
+        in.add("tables");
         in.add("exit");
 
         //when
@@ -181,7 +181,7 @@ public class IntegraionTest {
                 //connect
                 "Успех!\r\n" +
                 "Введи команду или help для помощи: \r\n"+
-                //list
+                //tables
                 "[user, test]\r\n" +
                 "Введи команду или help для помощи: \r\n"+
                 //exit
@@ -219,9 +219,9 @@ public class IntegraionTest {
     public void testConectAfterConnect(){
         //given
         in.add("connect|sqlcmd|postgres|12345678");
-        in.add("list");
+        in.add("tables");
         in.add("connect|test|postgres|12345678");
-        in.add("list");
+        in.add("tables");
         in.add("exit");
 
         //when
@@ -234,13 +234,13 @@ public class IntegraionTest {
                 //connect sqlcmd
                 "Успех!\r\n" +
                 "Введи команду или help для помощи: \r\n"+
-                //list
+                //tables
                 "[user, test]\r\n" +
                 "Введи команду или help для помощи: \r\n" +
                 //connect test
                 "Успех!\r\n" +
                 "Введи команду или help для помощи: \r\n" +
-                //list
+                //tables
                 "[test2]\r\n"+
                 "Введи команду или help для помощи: \r\n" +
                 //exit
