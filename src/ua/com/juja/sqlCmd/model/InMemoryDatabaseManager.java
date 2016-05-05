@@ -16,6 +16,11 @@ public class InMemoryDatabaseManager implements DatabaseManager {
         return data;
     }
 
+    @Override
+    public int getSize(String tableName) {
+        return data.size();
+    }
+
     private void validateTable(String tableName) {
         if(!"user".equals(tableName)){
             throw new UnsupportedOperationException("Only for 'user' table," +

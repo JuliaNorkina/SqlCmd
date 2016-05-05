@@ -33,8 +33,8 @@ public class JDBSDatabaseManager implements DatabaseManager {
             return result;
         }
     }
-
-    private int getSize(String tableName){
+    @Override
+    public int getSize(String tableName){
         try(Statement stmt = connection.createStatement();
             ResultSet rsCount = stmt.executeQuery("SELECT COUNT(*) FROM public."+tableName))
         {
