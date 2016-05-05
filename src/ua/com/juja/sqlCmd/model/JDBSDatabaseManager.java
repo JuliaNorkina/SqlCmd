@@ -2,6 +2,8 @@ package ua.com.juja.sqlCmd.model;
 
 import java.sql.*;
 import java.util.Arrays;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 /**
  * Created by Юлия on 10.04.2016.
@@ -47,21 +49,19 @@ public class JDBSDatabaseManager implements DatabaseManager {
     }
 
     @Override
-    public String[] getTableNames() {
+    public Set<String> getTableNames() {
+        Set<String> tables = new LinkedHashSet<String>();
         try(Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT table_name FROM information_schema.tables " +
                 "WHERE table_schema='public' AND table_type='BASE TABLE';"))
         {
-            String[] tables = new String[100];
-            int index = 0;
             while (rs.next()) {
-                tables[index++]=rs.getString("table_name");
+                tables.add(rs.getString("table_name"));
             }
-            tables = Arrays.copyOf(tables, index, String[].class);
             return tables;
         }catch (SQLException e){
             e.printStackTrace();
-            return new String[0];
+            return tables;
         }
     }
 
