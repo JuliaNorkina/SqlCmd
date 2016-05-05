@@ -29,6 +29,6 @@ public class Clear implements Command{
         }
         manager.clear(data[1]);
 
-        view.write(String .format("Таблица %s была успешно очищена!", data[1]));
+        view.write(String.format("Таблица %s была успешно очищена!", data[1]));
     }
 }

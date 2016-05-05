@@ -9,6 +9,7 @@ public class FakeView implements View {
 
     private String messages = "";
     private Object content;
+    private String input = null;
 
     @Override
     public void write(String message) {
@@ -17,7 +18,16 @@ public class FakeView implements View {
 
     @Override
     public String read() {
-        return null;
+        if(this.input == null){
+            throw new IllegalStateException("Для работы проинициализируйте метод read()");
+        }
+        String result = this.input;
+        this.input = null;
+        return result;
+    }
+
+    public void addRead(String input) {
+        this.input = input;
     }
 
     public String  getContent() {
