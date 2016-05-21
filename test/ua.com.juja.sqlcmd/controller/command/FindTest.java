@@ -17,6 +17,7 @@ import java.util.LinkedHashSet;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.fail;
 import static org.mockito.Mockito.*;
 
 /**
@@ -118,6 +119,18 @@ public class FindTest {
                         "| id | name | password | ," +
                         " ---------------------------," +
                         " ---------------------------]");
+    }
+
+    @Test
+    public void testErrorWhenBadCommandFormat(){
+        //when
+        try {
+            command.process("find|user|blabla");
+            fail("Expected exception");
+        } catch (IllegalArgumentException e){
+            //then
+            assertEquals("Формат команды 'find|tableName', а ты ввел: find|user|blabla", e.getMessage());
+        }
     }
 
     @Test
